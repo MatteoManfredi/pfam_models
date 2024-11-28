@@ -1,6 +1,13 @@
 # pfam_models
 
-This repository contains scripts for analyzing protein models and domains, specifically using PfamScan and FoldSeek. It allows users to process protein models, analyze them using Pfam domains, and generate results that can be used in further analysis or visualization.
+This repository allows reproducibility of the analysis described in the manuscript *"AlphaFold2 and ESMFold: A Large-Scale Pairwise Model Comparison of Human Enzymes upon Pfam Functional Annotation."* 
+
+We provide a Python script that automates the following tasks:  
+1. **Model Retrieval**: Downloads AlphaFold2 and ESMFold structural models from the [Alpha&ESMhFolds](https://alpha-esmhfolds.biocomp.unibo.it/) webserver for a given list of UniProt IDs.  
+2. **Domain Annotation**: Runs PfamScan and FoldSeek to annotate Pfam domains on the retrieved models.  
+3. **Statistical Analysis**: Computes statistical metrics to assess the quality of the models on the Pfam regions.
+
+The file `enzymes.txt` includes the list of enzymes used in the manuscript's analysis. However, the script can be applied to any custom list of UniProt IDs.
 
 ## Setup Instructions
 
@@ -50,7 +57,7 @@ conda install -c conda-forge -c bioconda foldseek
 
 ### 5. Update libtiff
 
-After installing FoldSeek, you may need to update the `libtiff` library because FoldSeek can break the dependencies of seaborn. To fix this, run:
+After installing FoldSeek, you may need to update the `libtiff` library because FoldSeek can break seaborn dependencies. To fix this, run:
 
 ```bash
 conda update libtiff
@@ -65,7 +72,8 @@ To use PfamScan, follow these steps:
 First, download and extract the PfamScan package:
 
 ```bash
-tar zxvf PfamScan.tar.gz
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/Tools/PfamScan.tar.gz
+tar -xzvf PfamScan.tar.gz
 cd PfamScan
 ```
 
@@ -124,6 +132,22 @@ Open `PfamScan/pfam_scan.pl` in a text editor and modify the first line to point
 #!/path/to/your/perl
 ```
 
+#### 6.7 Download Pfam data files
+
+PfamScan requires several files to execute, including `Pfam-A.hmm`, `Pfam-A.hmm.dat`, and `active_site.dat`. You can download them from the [Pfam FTP site](ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/):
+
+```bash
+mkdir pfam
+cd pfam
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.dat.gz
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/active_site.dat.gz
+gunzip Pfam-A.hmm.gz Pfam-A.hmm.dat.gz active_site.dat.gz
+hmmpress Pfam-A.hmm
+```
+
+The last command is needed to generate binary files for `Pfam-A.hmm`
+
 Now, PfamScan is set up and ready to use.
 
 ---
@@ -152,28 +176,35 @@ optional arguments:
   -a, --aggregate       Set this flag if you already generated the TSV file.
 ```
 
-### Example Command:
+### Reproduce the manuscript's analysis:
 
-To start an analysis using the provided `enzymes.txt` file as input, you can run the script with the following command:
+To reproduce the analysis using the provided `enzymes.txt` file as input, you can run the script with the following command:
 
 ```bash
-python analyze_models.py -n "project_name" -w 4 --pfamscript PfamScan/pfam_scan.pl --pfamdb PfamScan/pfam/
+python script.py
 ```
 
-- `-n "project_name"`: Sets the project name prefix (default is "enzymes").
+This assumes that inside the CWD you have a directory called `PfamScan` containing the script `pfam_scan.pl` and the subdirectory `pfam` with the downloaded data files. Moreover, files will be downloaded and analyzed one at a time. Alternatively, you can run the following command:
+
+```bash
+python script.py -w 4 --pfamscript path/to/script/pfam_scan.pl --pfamdb path/to/data/files/
+```
+
 - `-w 4`: Sets the maximum number of parallel workers (adjust based on your machine's capabilities).
 - `--pfamscript`: Path to the PfamScan script (`pfam_scan.pl`).
 - `--pfamdb`: Path to the PfamScan database directory.
-- `-d`: Set this flag if you already downloaded the necessary files from the webserver.
-- `-s`: Set this flag if you already generated the PfamScan results.
-- `-f`: Set this flag if you already generated the FoldSeek results.
-- `-a`: Set this flag if you already generated the TSV file.
 
-The script will perform the analysis, using FoldSeek for structural alignment and PfamScan for domain analysis, and will generate the results in the specified output directory.
+### Running a new analysis:
+
+To run the same analysis on a different dataset using a file `project_name.txt` as input, you can run the script with an additional flag that will set the project name prefix:
+
+```bash
+python script.py -n "project_name"
+```
 
 ---
 
 ## Additional Information
 
-- **Dependencies**: In addition to the libraries mentioned above, this script requires `seaborn`, `pandas`, and other related Python libraries.
-- **Input File**: The `enzymes.txt` file included in the repository is used as an input to start an analysis. You can modify this file or provide your own.
+- **Execution**: Please keep in mind that the analysis will take a lot of time to complete and needs to generate a lot of files. Make sure that you have free disk space and that the program execution will not be interrupted until completion. If you need to stop it, you can use the flags `-dsfa` to restart the analysis skipping parts of the pipeline.
+- **FoldSeek**: Running FoldSeek on multiple inputs in parallel can forcefully terminate the execution due to insufficient available memory. For this reason, the max_workers are currently capped at 1 for this part of the pipeline. Please keep in mind that FoldSeek will still use available cores to run each single analysis.
