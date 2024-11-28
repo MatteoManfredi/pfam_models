@@ -206,5 +206,12 @@ python script.py -n "project_name"
 
 ## Additional Information
 
-- **Execution**: Please keep in mind that the analysis will take a lot of time to complete and needs to generate a lot of files. Make sure that you have free disk space and that the program execution will not be interrupted until completion. If you need to stop it, you can use the flags `-dsfa` to restart the analysis skipping parts of the pipeline.
-- **FoldSeek**: Running FoldSeek on multiple inputs in parallel can forcefully terminate the execution due to insufficient available memory. For this reason, the max_workers are currently capped at 1 for this part of the pipeline. Please keep in mind that FoldSeek will still use available cores to run each single analysis.
+### Execution Time and Disk Space Requirements  
+The analysis process is resource-intensive and may take a significant amount of time to complete. It also generates numerous intermediate files, which require adequate disk space. Ensure your system has sufficient free space and that the execution is not interrupted until the analysis is complete.  
+
+If you need to halt the process midway, you can resume it later by using the `-d -s -f -a` flags. These flags allow you to skip already completed steps in the pipeline, saving time during re-execution.
+
+### FoldSeek Memory Considerations  
+When running FoldSeek on multiple inputs in parallel, insufficient memory may cause the program to terminate unexpectedly. To mitigate this, the `max_workers` parameter is capped at 1 for the FoldSeek step. However, FoldSeek will still utilize all available CPU cores to process each input efficiently.  
+
+If you have a machine with ample memory, consider commenting or changing line 269 of `script.py` to optimize performance for your specific hardware.
