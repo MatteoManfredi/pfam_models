@@ -85,7 +85,7 @@ Add PfamScan modules to your `PERL5LIB`:
 export PERL5LIB=${pwd}:$PERL5LIB
 ```
 
-#### 4.5 Download Pfam data files
+#### 4.4 Download Pfam data files
 
 PfamScan requires several files to execute, including `Pfam-A.hmm`, `Pfam-A.hmm.dat`, and `active_site.dat`. You can download them from the [Pfam FTP site](ftp://ftp.ebi.ac.uk/pub/databases/Pfam/) under `releases/Pfam37.0`:
 
