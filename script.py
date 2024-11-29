@@ -298,6 +298,8 @@ def aggregate_data(name: str, pfam_entries: List[Tuple[str, int, int, str, str, 
     """
     Aggregates all available data into a TSV file.
     """
+    print("Aggregating Data ...")
+    
     # Define data structure to hold aggregated information
     column_names = [
         "UniProt ID", "Pfam ID", "Start", "End", "Type", "Active Sites", "# Active Sites", "Class", "Protein Len", "Protein TM-score", "Protein AlphaFold2 pLDDT", "Protein ESMFold pLDDT", "Pfam Len", "Pfam TM-score", "Pfam AlphaFold2 pLDDT", "Pfam ESMFold pLDDT"
@@ -360,7 +362,7 @@ def aggregate_data(name: str, pfam_entries: List[Tuple[str, int, int, str, str, 
     tsv_file = f"{name}.tsv"
     df.to_csv(tsv_file, sep="\t", index=False)
     
-    print(f"Aggregated data saved to {tsv_file}")
+    print(f"... Aggregated data saved to {tsv_file}")
 
     return df
 
@@ -453,7 +455,7 @@ def print_active_sites_statistics(df: pd.DataFrame, writer: TextIO):
     Print count of active sites
     '''
     n_as = len(df[(df['Type'] == 'Domain') & (df['# Active Sites'] > 0)])
-    n_res = df['Active Sites'].apply(lambda x: len(re.findall(r'\d+', x))).sum()
+    n_res = df['Active Sites'].apply(lambda x: len(re.findall(r'\d+', x)) if isinstance(x,str) else len(x)).sum() # When executed after aggregation items are lists, when executed after reading the tsv they are strings
     writer.write(f"{n_as} active sites are annotated including {n_res} residues (average of {n_res/n_as:.2f} residues per active site)\n")
 
 
@@ -534,7 +536,7 @@ def plot_pfam_lengths(df: pd.DataFrame, name: str):
 
     # Create the second figure (Box Plot)
     plt.figure(figsize=(10, 7))
-    g = sns.boxplot(data=df_updated, x='Type', y='Pfam Len', order=type_order, fill=False)
+    g = sns.boxplot(data=df_updated, x='Type', y='Pfam Len', order=type_order) # fill=False only works for seaborn 0.13
     g.set_title("Pfam Lengths by Type", weight="bold", pad=20)
     g.set(xlabel=None, ylabel="Pfam Length", ylim=(-9, 909))
     plt.tight_layout()
