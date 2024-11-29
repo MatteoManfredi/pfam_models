@@ -78,20 +78,12 @@ conda install -c bioconda perl-moose
 conda install -c bioconda perl-bioperl
 ```
 
-Alternatively, you can install them via the `cpan` tool if you prefer.
-
 #### 4.4 Add PfamScan Modules to PERL5LIB
 
 If you are using bash, add PfamScan modules to your `PERL5LIB`, substituting `/path/to/pfam_scanDir` with your absolute path to the `PfamScan` directory:
 
 ```bash
 export PERL5LIB=/path/to/pfam_scanDir:$PERL5LIB
-```
-
-For `csh` or `tcsh`, run:
-
-```bash
-setenv PERL5LIB /path/to/pfam_scanDir:$PERL5LIB
 ```
 
 #### 4.5 Download Pfam data files
@@ -120,9 +112,9 @@ To install Foldseek, which is needed for protein structural alignments, use the 
 conda install -c conda-forge -c bioconda foldseek
 ```
 
-### 6. Install Seaborn
+### 6. Install Python libraries
 
-To install python libraries used by the script, use the following command:
+To install Python libraries used by the script, use the following command:
 
 ```bash
 conda install seaborn=0.12
