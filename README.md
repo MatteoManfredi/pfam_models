@@ -61,29 +61,26 @@ tar -xzvf PfamScan.tar.gz
 cd PfamScan
 ```
 
-#### 4.2 Install HMMER3
+#### 4.2 Install PfamScan dependencies
 
-PfamScan requires HMMER3 to perform domain searches. Install HMMER3 with Conda:
+PfamScan requires HMMER3 and several non-standard Perl dependencies. You can install them using Conda:
 
 ```bash
 conda install -c biocore hmmer
 ```
-
-#### 4.3 Install Perl Dependencies
-
-PfamScan requires several non-standard Perl dependencies. You can install them using Conda:
-
 ```bash
 conda install -c bioconda perl-moose
+```
+```bash
 conda install -c bioconda perl-bioperl
 ```
 
-#### 4.4 Add PfamScan Modules to PERL5LIB
+#### 4.3 Add PfamScan Modules to PERL5LIB
 
-If you are using bash, add PfamScan modules to your `PERL5LIB`, substituting `/absolute/path/to/pfam_models/PfamScan` with your path:
+Add PfamScan modules to your `PERL5LIB`:
 
 ```bash
-export PERL5LIB=/absolute/path/to/pfam_models/PfamScan:$PERL5LIB
+export PERL5LIB=${pwd}:$PERL5LIB
 ```
 
 #### 4.5 Download Pfam data files
@@ -98,9 +95,10 @@ wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/Pfam-A.hmm.dat.g
 wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/active_site.dat.gz
 gunzip Pfam-A.hmm.gz Pfam-A.hmm.dat.gz active_site.dat.gz
 hmmpress Pfam-A.hmm
+cd ../../
 ```
 
-The last command is needed to generate binary files for `Pfam-A.hmm`
+`hmmpress` is needed to generate binary files for `Pfam-A.hmm`
 
 Now, PfamScan is set up and ready to use.
 
