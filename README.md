@@ -80,10 +80,10 @@ conda install -c bioconda perl-bioperl
 
 #### 4.4 Add PfamScan Modules to PERL5LIB
 
-If you are using bash, add PfamScan modules to your `PERL5LIB`, substituting `/path/to/pfam_scanDir` with your absolute path to the `PfamScan` directory:
+If you are using bash, add PfamScan modules to your `PERL5LIB`, substituting `/absolute/path/to/pfam_models/PfamScan` with your path:
 
 ```bash
-export PERL5LIB=/path/to/pfam_scanDir:$PERL5LIB
+export PERL5LIB=/absolute/path/to/pfam_models/PfamScan:$PERL5LIB
 ```
 
 #### 4.5 Download Pfam data files
