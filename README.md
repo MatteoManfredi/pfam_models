@@ -16,7 +16,7 @@ The file `enzymes.txt` includes the list of enzymes used in the manuscript's ana
 To get started, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/pfam_models.git
+git clone https://github.com/MatteoManfredi/pfam_models.git
 cd pfam_models
 ```
 
