@@ -38,7 +38,7 @@ conda --version
 Create a new environment called `pfam_models`, including the seaborn library:
 
 ```bash
-conda create -n pfam_models seaborn
+conda create -n pfam_models python=3.7
 ```
 
 Activate the environment:
@@ -47,19 +47,11 @@ Activate the environment:
 conda activate pfam_models
 ```
 
-### 4. Install Foldseek
-
-To install Foldseek, which is needed for protein structural alignments, use the following command:
-
-```bash
-conda install -c conda-forge -c bioconda foldseek
-```
-
-### 5. Install and Set Up PfamScan
+### 4. Install and Set Up PfamScan
 
 To use PfamScan, follow these steps:
 
-#### 5.1 Download PfamScan
+#### 4.1 Download PfamScan
 
 First, download and extract the PfamScan package:
 
@@ -69,15 +61,7 @@ tar -xzvf PfamScan.tar.gz
 cd PfamScan
 ```
 
-#### 5.2 Install HMMER3
-
-PfamScan requires HMMER3 to perform domain searches. Install HMMER3 with Conda:
-
-```bash
-conda install -c biocore hmmer
-```
-
-#### 5.3 Add HMMER3 to Your Path
+#### 4.2 Add HMMER3 to Your Path
 
 Make sure HMMER3 binaries are available in your shell’s executable path. If you're using bash, run:
 
@@ -91,7 +75,7 @@ For `csh` or `tcsh`, run:
 setenv PATH /path/to/install/hmmer3:$PATH
 ```
 
-#### 5.4 Install Perl Dependencies
+#### 4.3 Install Perl Dependencies
 
 PfamScan requires several non-standard Perl dependencies. You can install them using Conda:
 
@@ -102,7 +86,7 @@ conda install -c bioconda perl-bioperl
 
 Alternatively, you can install them via the `cpan` tool if you prefer.
 
-#### 5.5 Add PfamScan Modules to PERL5LIB
+#### 4.4 Add PfamScan Modules to PERL5LIB
 
 If you are using bash, add PfamScan modules to your `PERL5LIB`, substituting `/path/to/pfam_scanDir` with your absolute path to the `PfamScan` directory:
 
@@ -116,7 +100,7 @@ For `csh` or `tcsh`, run:
 setenv PERL5LIB /path/to/pfam_scanDir:$PERL5LIB
 ```
 
-#### 5.6 Download Pfam data files
+#### 4.5 Download Pfam data files
 
 PfamScan requires several files to execute, including `Pfam-A.hmm`, `Pfam-A.hmm.dat`, and `active_site.dat`. You can download them from the [Pfam FTP site](ftp://ftp.ebi.ac.uk/pub/databases/Pfam/) under `releases/Pfam37.0`:
 
@@ -135,6 +119,22 @@ The last command is needed to generate binary files for `Pfam-A.hmm`
 Now, PfamScan is set up and ready to use.
 
 ---
+
+### 5. Install Foldseek
+
+To install Foldseek, which is needed for protein structural alignments, use the following command:
+
+```bash
+conda install -c conda-forge -c bioconda foldseek
+```
+
+### 6. Install Seaborn
+
+To install python libraries used by the script, use the following command:
+
+```bash
+conda install seaborn=0.12
+```
 
 ## Running the Script
 
