@@ -9,6 +9,8 @@ We provide a Python script that automates the following tasks:
 
 The file `enzymes.txt` includes the list of enzymes used in the manuscript's analysis. However, the script can be applied to any custom list of UniProt IDs.
 
+---
+
 ## Setup Instructions
 
 ### 1. Clone the Repository
@@ -115,7 +117,7 @@ conda install -c conda-forge -c bioconda foldseek
 To install Python libraries used by the script, use the following command:
 
 ```bash
-conda install seaborn=0.13 pandas=2.1
+conda install seaborn=0.12
 ```
 
 ---
