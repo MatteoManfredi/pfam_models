@@ -112,8 +112,6 @@ The last command is needed to generate binary files for `Pfam-A.hmm`
 
 Now, PfamScan is set up and ready to use.
 
----
-
 ### 5. Install Foldseek
 
 To install Foldseek, which is needed for protein structural alignments, use the following command:
@@ -129,6 +127,8 @@ To install python libraries used by the script, use the following command:
 ```bash
 conda install seaborn=0.12
 ```
+
+---
 
 ## Running the Script
 
