@@ -104,7 +104,7 @@ Alternatively, you can install them via the `cpan` tool if you prefer.
 
 #### 5.5 Add PfamScan Modules to PERL5LIB
 
-If you are using bash, add PfamScan modules to your `PERL5LIB`:
+If you are using bash, add PfamScan modules to your `PERL5LIB`, substituting `/path/to/pfam_scanDir` with your absolute path to the `PfamScan` directory:
 
 ```bash
 export PERL5LIB=/path/to/pfam_scanDir:$PERL5LIB
