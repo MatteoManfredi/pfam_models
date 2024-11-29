@@ -60,6 +60,7 @@ First, download and extract the PfamScan package:
 ```bash
 wget https://ftp.ebi.ac.uk/pub/databases/Pfam/Tools/PfamScan.tar.gz
 tar -xzvf PfamScan.tar.gz
+rm PfamScan.tar.gz
 cd PfamScan
 ```
 
