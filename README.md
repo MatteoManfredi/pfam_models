@@ -55,19 +55,11 @@ To install Foldseek, which is needed for protein structural alignments, use the 
 conda install -c conda-forge -c bioconda foldseek
 ```
 
-### 5. Update libtiff
-
-After installing Foldseek, you may need to update the `libtiff` library because Foldseek can break seaborn dependencies. To fix this, run:
-
-```bash
-conda update libtiff
-```
-
-### 6. Install and Set Up PfamScan
+### 5. Install and Set Up PfamScan
 
 To use PfamScan, follow these steps:
 
-#### 6.1 Download PfamScan
+#### 5.1 Download PfamScan
 
 First, download and extract the PfamScan package:
 
@@ -77,7 +69,7 @@ tar -xzvf PfamScan.tar.gz
 cd PfamScan
 ```
 
-#### 6.2 Install HMMER3
+#### 5.2 Install HMMER3
 
 PfamScan requires HMMER3 to perform domain searches. Install HMMER3 with Conda:
 
@@ -85,7 +77,7 @@ PfamScan requires HMMER3 to perform domain searches. Install HMMER3 with Conda:
 conda install -c biocore hmmer
 ```
 
-#### 6.3 Add HMMER3 to Your Path
+#### 5.3 Add HMMER3 to Your Path
 
 Make sure HMMER3 binaries are available in your shell’s executable path. If you're using bash, run:
 
@@ -99,7 +91,7 @@ For `csh` or `tcsh`, run:
 setenv PATH /path/to/install/hmmer3:$PATH
 ```
 
-#### 6.4 Install Perl Dependencies
+#### 5.4 Install Perl Dependencies
 
 PfamScan requires several non-standard Perl dependencies. You can install them using Conda:
 
@@ -110,7 +102,7 @@ conda install -c bioconda perl-bioperl
 
 Alternatively, you can install them via the `cpan` tool if you prefer.
 
-#### 6.5 Add PfamScan Modules to PERL5LIB
+#### 5.5 Add PfamScan Modules to PERL5LIB
 
 If you are using bash, add PfamScan modules to your `PERL5LIB`:
 
@@ -124,24 +116,16 @@ For `csh` or `tcsh`, run:
 setenv PERL5LIB /path/to/pfam_scanDir:$PERL5LIB
 ```
 
-#### 6.6 Change the Perl Path in `pfam_scan.pl`
+#### 5.6 Download Pfam data files
 
-Open `PfamScan/pfam_scan.pl` in a text editor and modify the first line to point to your Perl installation. For example:
-
-```perl
-#!/path/to/your/perl
-```
-
-#### 6.7 Download Pfam data files
-
-PfamScan requires several files to execute, including `Pfam-A.hmm`, `Pfam-A.hmm.dat`, and `active_site.dat`. You can download them from the [Pfam FTP site](ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/):
+PfamScan requires several files to execute, including `Pfam-A.hmm`, `Pfam-A.hmm.dat`, and `active_site.dat`. You can download them from the [Pfam FTP site](ftp://ftp.ebi.ac.uk/pub/databases/Pfam/) under `releases/Pfam37.0`:
 
 ```bash
 mkdir pfam
 cd pfam
-wget https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
-wget https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.dat.gz
-wget https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/active_site.dat.gz
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/Pfam-A.hmm.gz
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/Pfam-A.hmm.dat.gz
+wget https://ftp.ebi.ac.uk/pub/databases/Pfam/releases/Pfam37.0/active_site.dat.gz
 gunzip Pfam-A.hmm.gz Pfam-A.hmm.dat.gz active_site.dat.gz
 hmmpress Pfam-A.hmm
 ```
