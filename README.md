@@ -61,18 +61,12 @@ tar -xzvf PfamScan.tar.gz
 cd PfamScan
 ```
 
-#### 4.2 Add HMMER3 to Your Path
+#### 4.2 Install HMMER3
 
-Make sure HMMER3 binaries are available in your shell’s executable path. If you're using bash, run:
-
-```bash
-export PATH=/path/to/install/hmmer3:$PATH
-```
-
-For `csh` or `tcsh`, run:
+PfamScan requires HMMER3 to perform domain searches. Install HMMER3 with Conda:
 
 ```bash
-setenv PATH /path/to/install/hmmer3:$PATH
+conda install -c biocore hmmer
 ```
 
 #### 4.3 Install Perl Dependencies
