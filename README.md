@@ -51,7 +51,7 @@ conda activate pfam_models
 
 ### 4. Install and Set Up PfamScan
 
-To use PfamScan, follow these steps:
+To use [PfamScan](https://pfam-docs.readthedocs.io/en/latest/), follow these steps:
 
 #### 4.1 Download PfamScan
 
@@ -107,7 +107,7 @@ Now, PfamScan is set up and ready to use.
 
 ### 5. Install Foldseek
 
-To install Foldseek, which is needed for protein structural alignments, use the following command:
+To install [Foldseek](https://github.com/steineggerlab/foldseek), which is needed for protein structural alignments, use the following command:
 
 ```bash
 conda install -c conda-forge -c bioconda foldseek
