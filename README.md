@@ -4,7 +4,7 @@ This repository allows reproducibility of the analysis described in the manuscri
 
 We provide a Python script that automates the following tasks:  
 1. **Model Retrieval**: Downloads AlphaFold2 and ESMFold structural models from the [Alpha&ESMhFolds](https://alpha-esmhfolds.biocomp.unibo.it/) webserver for a given list of UniProt IDs.  
-2. **Domain Annotation**: Runs PfamScan and FoldSeek to annotate Pfam domains on the retrieved models.  
+2. **Domain Annotation**: Runs PfamScan and Foldseek to annotate Pfam domains on the retrieved models.  
 3. **Statistical Analysis**: Computes statistical metrics to assess the quality of the models on the Pfam regions.
 
 The file `enzymes.txt` includes the list of enzymes used in the manuscript's analysis. However, the script can be applied to any custom list of UniProt IDs.
@@ -35,7 +35,7 @@ conda --version
 
 ### 3. Create a New Conda Environment
 
-Create a new environment called `pfam_models`, which includes the required libraries:
+Create a new environment called `pfam_models`, including the seaborn library:
 
 ```bash
 conda create -n pfam_models seaborn
@@ -47,9 +47,9 @@ Activate the environment:
 conda activate pfam_models
 ```
 
-### 4. Install FoldSeek
+### 4. Install Foldseek
 
-To install FoldSeek, which is needed for protein structural alignments, use the following command:
+To install Foldseek, which is needed for protein structural alignments, use the following command:
 
 ```bash
 conda install -c conda-forge -c bioconda foldseek
@@ -57,7 +57,7 @@ conda install -c conda-forge -c bioconda foldseek
 
 ### 5. Update libtiff
 
-After installing FoldSeek, you may need to update the `libtiff` library because FoldSeek can break seaborn dependencies. To fix this, run:
+After installing Foldseek, you may need to update the `libtiff` library because Foldseek can break seaborn dependencies. To fix this, run:
 
 ```bash
 conda update libtiff
@@ -172,7 +172,7 @@ optional arguments:
   --pfamdb PFAMDB       Path to PfamScan database directory (default: PfamScan/pfam/)
   -d, --download        Set this flag if you already downloaded the files from the webserver.
   -s, --pfamscan        Set this flag if you already generated the PfamScan results.
-  -f, --foldseek        Set this flag if you already generated the FoldSeek results.
+  -f, --foldseek        Set this flag if you already generated the Foldseek results.
   -a, --aggregate       Set this flag if you already generated the TSV file.
 ```
 
@@ -211,7 +211,7 @@ The analysis process is resource-intensive and may take a significant amount of 
 
 If you need to halt the process midway, you can resume it later by using the `-d -s -f -a` flags. These flags allow you to skip already completed steps in the pipeline, saving time during re-execution.
 
-### FoldSeek Memory Considerations  
-When running FoldSeek on multiple inputs in parallel, insufficient memory may cause the program to terminate unexpectedly. To mitigate this, the `max_workers` parameter is capped at 1 for the FoldSeek step. However, FoldSeek will still utilize all available CPU cores to process each input efficiently.  
+### Foldseek Memory Considerations  
+When running Foldseek on multiple inputs in parallel, insufficient memory may cause the program to terminate unexpectedly. To mitigate this, the `max_workers` parameter is capped at 1 for the Foldseek step. However, Foldseek will still utilize all available CPU cores to process each input efficiently.  
 
 If you have a machine with ample memory, consider commenting or changing line 269 of `script.py` to optimize performance for your specific hardware.
