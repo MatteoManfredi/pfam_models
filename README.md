@@ -117,7 +117,7 @@ conda install -c conda-forge -c bioconda foldseek
 To install Python libraries used by the script, use the following command:
 
 ```bash
-conda install seaborn=0.12
+conda install seaborn=0.13 pandas=2.1
 ```
 
 ---
