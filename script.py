@@ -68,7 +68,7 @@ def check_environment(name: str, max_workers: int, pfamscript: str, pfamdb: str,
         
         if not foldseek:
             for subdir in ["foldseek", "fstmp"]:
-                check_directory(f"{name}-{subdir}", f"FoldSeek directory {subdir}")
+                check_directory(f"{name}-{subdir}", f"Foldseek directory {subdir}")
     
     else:
         check_file(f"{name}.tsv", "Aggregated TSV file")
@@ -261,21 +261,21 @@ def cut_domains(name: str, pfam_entries: List[Tuple[str, int, int, str, str, Lis
 
 def run_foldseek(name: str, pfam_entries: List[Tuple[str, int, int, str, str, List[str]]], max_workers: int) -> None:
     """
-    Run the FoldSeek tool to compute TM-scores between AlphaFold2 and ESMFold models for each Pfam entry.
+    Run the Foldseek tool to compute TM-scores between AlphaFold2 and ESMFold models for each Pfam entry.
     """
     # Foldseek seems to crash when multiple instances are executed, probably due to limits in the available memory
     # We force it to execute one job at a time (they still use parallelization)
     # Comment this line if you have enough memory to try and run it with max_workers > 1
     max_workers = 1
     
-    print("Running FoldSeek ...")
+    print("Running Foldseek ...")
     
-    # Directories for FoldSeek output and temporary files
+    # Directories for Foldseek output and temporary files
     output_dirs = [f"{name}-{suffix}" for suffix in ["foldseek", "fstmp"]]
     for directory in output_dirs:
         os.makedirs(directory, exist_ok=True)
 
-    # Generate FoldSeek commands for each Pfam entry
+    # Generate Foldseek commands for each Pfam entry
     commands = []
     for uniprot_id, start, end, pfam_id, entry_type, active_sites in pfam_entries:
         afs_pfam_file = f"{name}-afs-pfam/{uniprot_id}_{pfam_id}_{start}_{end}.pdb"
@@ -291,7 +291,7 @@ def run_foldseek(name: str, pfam_entries: List[Tuple[str, int, int, str, str, Li
     # Execute commands in parallel
     parallel(max_workers, commands)
 
-    print("... FoldSeek processing complete.")
+    print("... Foldseek processing complete.")
 
 
 def aggregate_data(name: str, pfam_entries: List[Tuple[str, int, int, str, str, List[str]]]) -> pd.DataFrame:
@@ -570,7 +570,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pfamdb", type=str, default="PfamScan/pfam/", help="Path to PfamScan database directory.")
     parser.add_argument("-d", "--download", action="store_false", help="Set this flag if you already downloaded the files from the webserver.")
     parser.add_argument("-s", "--pfamscan", action="store_false", help="Set this flag if you already generated the PfamScan results.")
-    parser.add_argument("-f", "--foldseek", action="store_false", help="Set this flag if you already generated the FoldSeek results.")
+    parser.add_argument("-f", "--foldseek", action="store_false", help="Set this flag if you already generated the Foldseek results.")
     parser.add_argument("-a", "--aggregate", action="store_false", help="Set this flag if you already generated the TSV file.")
     return parser.parse_args()
 
