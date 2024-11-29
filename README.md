@@ -83,7 +83,7 @@ conda install -c bioconda perl-bioperl
 Add PfamScan modules to your `PERL5LIB`:
 
 ```bash
-export PERL5LIB=${pwd}:$PERL5LIB
+export PERL5LIB=$(pwd):$PERL5LIB
 ```
 
 #### 4.4 Download Pfam data files
